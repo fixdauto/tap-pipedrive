@@ -151,62 +151,20 @@
     "phones": {
       "type": [
         "null",
-        "array"
-      ],
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          },
-          "primary": {
-            "type": "boolean"
-          },
-          "label": {
-            "type": "string"
-          }
-        }
-      }
+        "string"
+      ]
     },
     "im": {
       "type": [
         "null",
-        "array"
-      ],
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          },
-          "primary": {
-            "type": "boolean"
-          },
-          "label": {
-            "type": "string"
-          }
-        }
-      }
+        "string"
+      ]
     },
     "emails": {
       "type": [
         "null",
-        "array"
-      ],
-      "items": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          },
-          "primary": {
-            "type": "boolean"
-          },
-          "label": {
-            "type": "string"
-          }
-        }
-      }
+        "string"
+      ]
     },
     "update_time": {
       "type": [
