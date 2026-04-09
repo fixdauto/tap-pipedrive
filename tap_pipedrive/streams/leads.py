@@ -65,6 +65,7 @@ class LeadsStream(DynamicSchemaStream):
         return params
 
     def process_row(self, row):
+        # Normalize the `value` nested object into flat columns
         value = row.get('value')
         if value and isinstance(value, dict):
             row['lead_value_amount'] = value.get('amount')
@@ -72,4 +73,20 @@ class LeadsStream(DynamicSchemaStream):
         else:
             row['lead_value_amount'] = None
             row['lead_value_currency'] = None
+    
+        # Normalize label_ids: Pipedrive returns a JSON array (e.g. ["uuid1", "uuid2"]).
+        # target-postgres maps Singer's `array` type to jsonb[], but the destination
+        # column is jsonb.  Wrap the list in a dict so Singer emits a plain jsonb
+        # object and the insert succeeds regardless of whether the column already
+        # exists as jsonb or is being created fresh.
+        #
+        # Downstream consumers can access the IDs via  label_ids->>'values'
+        # in SQL, or cast back to an array with:
+        #   ARRAY(SELECT jsonb_array_elements_text(label_ids->'values'))
+        label_ids = row.get('label_ids')
+        if isinstance(label_ids, list):
+            row['label_ids'] = {'values': label_ids}
+        elif label_ids is None:
+            row['label_ids'] = None
+    
         return row
