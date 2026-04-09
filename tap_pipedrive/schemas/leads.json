@@ -25,11 +25,8 @@
     "label_ids": {
       "type": [
         "null",
-        "array"
-      ],
-      "items": {
-        "type": "string"
-      }
+        "object"
+      ]
     },
     "person_id": {
       "type": [
