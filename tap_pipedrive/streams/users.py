@@ -1,9 +1,7 @@
-from tap_pipedrive.stream import RecentsStream
+from tap_pipedrive.stream import PipedriveV1IncrementalStream
 
-class UsersStream(RecentsStream):
+class UsersStream(PipedriveV1IncrementalStream):
     endpoint = 'users'
     schema = 'users'
     key_properties = ['id']
-    replication_method = 'INCREMENTAL'
-    state_field = 'modified'
-    items = 'user'
+    replication_method = 'FULL_TABLE'
